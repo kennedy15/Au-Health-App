@@ -48,5 +48,4 @@ router.post('/verifyAccount', (req, res) => {
     }
 })
 
-
 module.exports = router;

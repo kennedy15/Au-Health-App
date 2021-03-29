@@ -8,7 +8,7 @@ function createNewUserInDB(hashedEmail, hashedPassword, isAdmin) {
             host: process.env.DB_HOST,
             user: "root",
             // password: process.env.DB_PASS,
-            database: "au_cares_db"
+            database: "backendSchemas"
         });
         mySqlConnection.connect(function(err) {
             if (err) reject(err);
@@ -40,15 +40,39 @@ function getUserHashedPasswordFromEmail(hashedEmail) {
     })
 }
 
+//Insert Dares into table
+function createDare() {
+    let mySqlConnection = createMySqlConnection();
+    let sqlQuery = `INSERT INTO Dares(Dare, Points, CategoryId, MinPointsNeeded, HoursToComplete) VALUES ("Dare", 5, 5, 2, 2)`;
+    return queryViaMySqlConnection(mySqlConnection, sqlQuery).then((resolve, reject) => {
+        return resolve;
+    })
+}
 
+//Insert Truths into table
+function createTruths() {
+    let mySqlConnection = createMySqlConnection();
+    let sqlQuery = `INSERT INTO Truths(Truth, Points, CategoryId, MinPointsNeeded, HoursToComplete) VALUES ("Truth", 1, 2, 3, 4)`;
+    return queryViaMySqlConnection(mySqlConnection, sqlQuery).then((resolve, reject) => {
+        return resolve;
+    })
+}
 
+//Insert Questions into table
+function createQuestions() {
+    let mySqlConnection = createMySqlConnection();
+    let sqlQuery = `INSERT INTO Questions(QuestionTitle, Question, Points, CategoryId, MinPointsNeeded, HoursToComplete) VALUES ("Questions", "What is your name?", 2, 1, 10, 2)`;
+    return queryViaMySqlConnection(mySqlConnection, sqlQuery).then((resolve, reject) => {
+        return resolve;
+    })
+}
 /**************************Shortcuts to create connection************/
 function createMySqlConnection() {
     return mysql.createConnection({
         host: process.env.DB_HOST,
         user: "root",
         // password: process.env.DB_PASS,
-        database: "au_cares_db"
+        database: "backendSchemas"
     });
 }
 
@@ -68,3 +92,6 @@ function queryViaMySqlConnection(sqlConnection, sqlQuery) {
 module.exports.createNewUserInDB = createNewUserInDB;
 module.exports.getUserInfoFromEmail = getUserInfoFromEmail;
 module.exports.getUserHashedPasswordFromEmail = getUserHashedPasswordFromEmail;
+module.exports.createDare = createDare;
+module.exports.createTruths = createTruths;
+module.exports.createQuestions = createQuestions;
